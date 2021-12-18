@@ -1,10 +1,28 @@
-import PropTypes from "prop-types";
 import { useState } from "react";
 import styles from "./Form.module.css";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { addContact } from "../Redux/Counter/counter-operation";
 
-function Form({ onClick }) {
+function Form() {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
+  const contacts = useSelector((state) => state.contacts.items);
+  const dispatch = useDispatch();
+
+  function handleAddContact(name, number) {
+    if (
+      contacts.find((contact) => {
+        return contact.name === name || contact.number === number;
+      })
+    )
+      return alert(`${name} is already in contacts`);
+
+    if (name === "" || number === "") return alert("Please enter correct name");
+    else {
+      dispatch(addContact({ name, number }));
+    }
+  }
 
   function handleChange(e) {
     const { name, value } = e.currentTarget;
@@ -21,7 +39,7 @@ function Form({ onClick }) {
   }
 
   function handleClick() {
-    onClick(name, number);
+    handleAddContact(name, number);
     resetState();
   }
 
@@ -68,9 +86,5 @@ function Form({ onClick }) {
     </form>
   );
 }
-
-Form.propTypes = {
-  onClick: PropTypes.func.isRequired,
-};
 
 export default Form;
