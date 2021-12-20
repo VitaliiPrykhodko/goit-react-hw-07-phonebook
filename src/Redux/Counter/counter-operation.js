@@ -24,7 +24,7 @@ export const deleteContact = createAsyncThunk(
 export const addContact = createAsyncThunk(
   'contacts/addContact',
   async ({ name, number: phone }) => {
-    const contact = {createdAt: new Date.now(), name, phone };
+    const contact = { name, phone };
 
     const { data } = await axios.post('/contacts', contact);
     return data;

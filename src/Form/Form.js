@@ -79,7 +79,7 @@ function Form() {
       <button
         type="button"
         className={styles.btn_contact}
-        onClick={handleClick}
+        onClick={()=>handleClick()}
       >
         Add contact
       </button>

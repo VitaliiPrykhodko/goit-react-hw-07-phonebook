@@ -4,6 +4,8 @@ import { persistReducer } from "redux-persist";
 import { combineReducers } from "redux";
 import thunk from "redux-thunk";
 import {items, filter, loading, error} from "./Counter/counter-reducer";
+import logger from "redux-logger";
+console.log(logger);
 
 const persistConfig = {
   key: "root",
@@ -11,10 +13,10 @@ const persistConfig = {
 };
 
 const reducer = combineReducers({
-  items: items,
-  filter: filter,
-  loading: loading,
-  error: error
+  items,
+  filter,
+  loading,
+  error
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);
@@ -24,5 +26,5 @@ export const store = configureStore({
     contacts: persistedReducer,
   },
   devTools: process.env.NODE_ENV !== "production",
-  middleware: [thunk],
+  middleware: [thunk, logger],
 });
