@@ -5,7 +5,6 @@ import { combineReducers } from "redux";
 import thunk from "redux-thunk";
 import {items, filter, loading, error} from "./Counter/counter-reducer";
 import logger from "redux-logger";
-console.log(logger);
 
 const persistConfig = {
   key: "root",
